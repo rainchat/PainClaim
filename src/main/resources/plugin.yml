@@ -1,0 +1,7 @@
+name: PlaceProtect
+version: ${project.version}
+main: com.rainchat.placeprotect.PlaceProtect
+api-version: 1.17
+depend:
+  - AspectManager
+authors: [ rain_chat ]
