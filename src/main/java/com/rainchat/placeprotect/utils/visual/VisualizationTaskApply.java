@@ -1,7 +1,6 @@
 package com.rainchat.placeprotect.utils.visual;
 
 import com.rainchat.placeprotect.PlaceProtect;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 class VisualizationTaskApply implements Runnable

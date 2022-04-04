@@ -65,12 +65,15 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-
         <repository>
             <id>iridiumdevelopment</id>
             <url>https://nexus.iridiumdevelopment.net/repository/maven-releases/</url>
         </repository>
-
+        <!--PlaceholderAPI repo-->
+        <repository>
+            <id>placeholderapi</id>
+            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -80,36 +83,36 @@
             <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>23.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.rainchat</groupId>
-            <artifactId>LiteGui</artifactId>
-            <version>2.1</version>
-        </dependency>
-
         <!-- For the common module -->
         <dependency>
             <groupId>com.github.Revxrsal.Lamp</groupId>
             <artifactId>common</artifactId>
             <version>3.0.1</version>
         </dependency>
-
         <!-- For the bukkit module -->
         <dependency>
             <groupId>com.github.Revxrsal.Lamp</groupId>
             <artifactId>bukkit</artifactId>
             <version>3.0.1</version>
         </dependency>
-
+        <!--PlaceholderAPI dependency-->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.10.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--IridiumColorAPI dependency-->
         <dependency>
             <groupId>com.iridium</groupId>
             <artifactId>IridiumColorAPI</artifactId>
             <version>1.0.6</version>
+        </dependency>
+        <!--hInventoryAPI dependency-->
+        <dependency>
+            <groupId>com.github.hakan-krgn</groupId>
+            <artifactId>hInventoryAPI</artifactId>
+            <version>1.0.8</version>
         </dependency>
 
     </dependencies>

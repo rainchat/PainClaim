@@ -1,11 +1,10 @@
-package com.rainchat.placeprotect.listeners;
+package com.rainchat.placeprotect.resourses.listeners;
 
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import com.rainchat.placeprotect.data.claim.Region;
 import com.rainchat.placeprotect.data.village.PaintClaim;
 import com.rainchat.placeprotect.data.village.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

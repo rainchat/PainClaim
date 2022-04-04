@@ -3,7 +3,6 @@ package com.rainchat.placeprotect.data.village;
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
 import com.rainchat.placeprotect.utils.visual.Visualization;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;

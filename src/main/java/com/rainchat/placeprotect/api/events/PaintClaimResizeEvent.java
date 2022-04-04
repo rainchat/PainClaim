@@ -1,13 +1,11 @@
 package com.rainchat.placeprotect.api.events;
 
-import com.rainchat.placeprotect.data.claim.Region;
 import com.rainchat.placeprotect.data.village.PaintClaim;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.util.Vector;
 
 public class PaintClaimResizeEvent extends Event implements Cancellable {
 

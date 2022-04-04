@@ -1,9 +1,11 @@
 # Pueblos plugin by RonanCraft! (Join my Public Server mc.RonanCraft.net) #
 # Need help? go to https://ronancraft.net/discord! #
 
-Language-File: 'en.yml'
 
-DateFormat: 'EEE MMM dd, yyyy hh:mm:ss a' # More formatting here https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+Settings-Global:
+  # languages en_En,ru_Ru...
+  default-language: en_EN
+  economy-enable: false
 
 Claim: # Forced claim options
   Item: 'golden_shovel'
@@ -18,5 +20,7 @@ Global: # Settings that affect the whole server, not just claims
   SilverfishBreakBlocks: false
   RabbitsEatCrops: false
 
-Player:
-  ProtectDeathDrops: true # If a player dies, their items will not be able to be picked up by others
+Placeholders:
+  enable-flag: '&aenable'
+  disable-flag:  '&cdisable'
+  exapmle-color: '<#12345>'

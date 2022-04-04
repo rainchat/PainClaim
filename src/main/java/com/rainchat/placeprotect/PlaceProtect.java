@@ -1,19 +1,23 @@
 package com.rainchat.placeprotect;
 
 import com.google.gson.reflect.TypeToken;
-
-import com.rainchat.placeprotect.commands.AdminCommands;
-import com.rainchat.placeprotect.commands.ClaimCommand;
+import com.rainchat.placeprotect.builder.PaginationBuilder;
+import com.rainchat.placeprotect.data.config.ConfigFlags;
+import com.rainchat.placeprotect.data.config.ConfigCliam;
 import com.rainchat.placeprotect.data.village.PaintClaim;
 import com.rainchat.placeprotect.data.village.PaintPlayer;
-import com.rainchat.placeprotect.listeners.ConnectListener;
-import com.rainchat.placeprotect.listeners.CuboidEvent;
-import com.rainchat.placeprotect.listeners.MoveEvent;
-import com.rainchat.placeprotect.listeners.flags.global.BurnEvent;
 import com.rainchat.placeprotect.managers.ClaimManager;
+import com.rainchat.placeprotect.managers.FileManager;
+import com.rainchat.placeprotect.managers.FlagManager;
+import com.rainchat.placeprotect.managers.MenuManager;
+import com.rainchat.placeprotect.resourses.commands.AdminCommands;
+import com.rainchat.placeprotect.resourses.commands.ClaimCommand;
+import com.rainchat.placeprotect.resourses.listeners.ConnectListener;
+import com.rainchat.placeprotect.resourses.listeners.CuboidEvent;
+import com.rainchat.placeprotect.resourses.listeners.MoveEvent;
+import com.rainchat.placeprotect.resourses.listeners.flags.global.BurnEvent;
+import com.rainchat.placeprotect.resourses.listeners.flags.global.EntityListener;
 import com.rainchat.placeprotect.utils.claim.ClaimWriter;
-
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import revxrsal.commands.bukkit.BukkitCommandHandler;
 
@@ -21,26 +25,34 @@ import java.util.Set;
 
 public final class PlaceProtect extends JavaPlugin {
 
-    public BukkitCommand testCommand;
     private static PlaceProtect instance;
     private static ClaimManager claimManager;
+    private static FlagManager flagManager;
+    private final MenuManager menuManager = MenuManager.getInstance();
 
     @Override
     public void onEnable() {
         instance = this;
 
+        flagManager = FlagManager.INSTANCE;
+
+        FileManager fileManager = FileManager.getInstance();
+        fileManager.registerCustomFilesFolder("menus");
+        fileManager.setup(this);
+
+        ConfigCliam.setup();
+        ConfigFlags.setup();
+
+        PaginationBuilder actionBuilder = PaginationBuilder.INSTANCE;
 
 
-        claimManager = new ClaimManager(this);
-
+        claimManager = ClaimManager.INSTANCE;
         claimManager.load(new TypeToken<Set<PaintClaim>>() {
         }.getType());
 
         ClaimWriter.setup(claimManager);
 
         //Commands register
-        //CubeCore.getAPI().getCommandManager().registerCommand(new ClaimCommand(claimManager));
-        //CubeCore.getAPI().getCommandManager().registerCommand(new AdminCommands(claimManager));
         BukkitCommandHandler commandHandler = BukkitCommandHandler.create(this);
         commandHandler.register(
                 new AdminCommands(claimManager),
@@ -51,8 +63,10 @@ public final class PlaceProtect extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CuboidEvent(claimManager), this);
         getServer().getPluginManager().registerEvents(new BurnEvent(claimManager), this);
         getServer().getPluginManager().registerEvents(new MoveEvent(claimManager), this);
+        getServer().getPluginManager().registerEvents(new EntityListener(claimManager), this);
         getServer().getPluginManager().registerEvents(new ConnectListener(claimManager), this);
 
+        menuManager.setupMenus(claimManager);
     }
 
     @Override
@@ -73,7 +87,7 @@ public final class PlaceProtect extends JavaPlugin {
         return claimManager;
     }
 
-
-
-
+    public static FlagManager getFlagManager() {
+        return flagManager;
+    }
 }

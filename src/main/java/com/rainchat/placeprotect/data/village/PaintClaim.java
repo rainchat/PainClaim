@@ -6,7 +6,10 @@ import com.rainchat.placeprotect.data.enums.ClaimPermission;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class PaintClaim {
 

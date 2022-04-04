@@ -45,7 +45,7 @@ public class ClaimWriter {
         //##############################
 
         //Intersects with other regions
-        if (ClaimWriter.isOverlaps(region,paintPlayer) && paintClaim.) {
+        if (ClaimWriter.isOverlaps(region,paintPlayer)) {
             Bukkit.broadcastMessage("Создаваемый регион пересикается с другим регионом");
             return;
         }

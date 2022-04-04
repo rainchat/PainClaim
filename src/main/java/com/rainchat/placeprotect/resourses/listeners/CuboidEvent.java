@@ -1,16 +1,10 @@
-package com.rainchat.placeprotect.listeners;
+package com.rainchat.placeprotect.resourses.listeners;
 
 
-import com.rainchat.placeprotect.data.claim.Region;
-import com.rainchat.placeprotect.data.village.PaintClaim;
 import com.rainchat.placeprotect.data.village.PaintPlayer;
-import com.rainchat.placeprotect.data.village.PlayerClaimInteraction;
 import com.rainchat.placeprotect.managers.ClaimManager;
-import com.rainchat.placeprotect.utils.claim.ClaimCorner;
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
 import com.rainchat.placeprotect.utils.claim.ClaimWriter;
-import com.rainchat.placeprotect.utils.visual.Visualization;
-import com.rainchat.placeprotect.utils.visual.VisualizationType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,9 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.BlockIterator;
-import org.bukkit.util.Vector;
-
-import java.util.List;
 
 public class CuboidEvent implements Listener {
 

@@ -1,4 +1,4 @@
-package com.rainchat.placeprotect.listeners;
+package com.rainchat.placeprotect.resourses.listeners;
 
 import com.rainchat.placeprotect.managers.ClaimManager;
 import org.bukkit.event.EventHandler;

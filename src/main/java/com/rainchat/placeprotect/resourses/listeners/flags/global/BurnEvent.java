@@ -1,6 +1,5 @@
-package com.rainchat.placeprotect.listeners.flags.global;
+package com.rainchat.placeprotect.resourses.listeners.flags.global;
 
-import com.rainchat.placeprotect.PlaceProtect;
 import com.rainchat.placeprotect.data.village.PaintClaim;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import org.bukkit.Material;

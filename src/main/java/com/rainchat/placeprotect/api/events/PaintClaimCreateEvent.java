@@ -1,7 +1,5 @@
 package com.rainchat.placeprotect.api.events;
 
-import com.rainchat.placeprotect.data.claim.Region;
-
 import com.rainchat.placeprotect.data.village.PaintClaim;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

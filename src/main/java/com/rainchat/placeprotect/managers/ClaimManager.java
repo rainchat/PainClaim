@@ -1,5 +1,6 @@
 package com.rainchat.placeprotect.managers;
 
+import com.rainchat.placeprotect.PlaceProtect;
 import com.rainchat.placeprotect.data.claim.Region;
 import com.rainchat.placeprotect.data.village.PaintClaim;
 import com.rainchat.placeprotect.data.village.PaintPlayer;
@@ -16,7 +17,9 @@ public class ClaimManager extends Manager<PaintClaim> {
 
     private final Map<UUID, PaintPlayer> paintPlayers = new HashMap<>();
 
-    public ClaimManager(Plugin plugin) {
+    public static final ClaimManager INSTANCE = new ClaimManager(PlaceProtect.getInstance());
+
+    private ClaimManager(Plugin plugin) {
         super("date/regions", plugin);
         this.plugin = plugin;
     }
@@ -26,9 +29,9 @@ public class ClaimManager extends Manager<PaintClaim> {
        paintPlayers.remove(player.getUniqueId());
     }
 
-    public PaintClaim getVillage(String string) {
+    public PaintClaim getClaim(UUID string) {
         for (PaintClaim paintClaim : toSet()) {
-            if (paintClaim.getName().equalsIgnoreCase(string)) {
+            if (paintClaim.getId().equals(string)) {
                 return paintClaim;
             }
         }
@@ -95,6 +98,15 @@ public class ClaimManager extends Manager<PaintClaim> {
 
     public Set<PaintClaim> getClaims() {
         return toSet();
+    }
+
+    public void remove(UUID uuid) {
+        for (PaintClaim paintClaim: toSet()) {
+            if (paintClaim.getId().equals(uuid)) {
+                remove(paintClaim);
+                return;
+            }
+        }
     }
 
     public Collection<PaintPlayer> getPlayers() {

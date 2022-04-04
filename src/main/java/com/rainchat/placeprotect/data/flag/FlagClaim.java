@@ -1,21 +1,20 @@
-package com.rainchat.placeprotect.data;
+package com.rainchat.placeprotect.data.flag;
 
-import com.rainchat.placeprotect.data.enums.FlagType;
 import org.bukkit.inventory.ItemStack;
 
-public class FlagVillage {
+public class FlagClaim {
 
     private String name;
     private String displayName;
     private ItemStack item;
 
-    public FlagVillage(String name, String displayName, ItemStack item) {
+    public FlagClaim(String name, String displayName, ItemStack item) {
         this.name = name;
         this.displayName = displayName;
         this.item = item;
     }
 
-    public FlagVillage(String name, ItemStack item) {
+    public FlagClaim(String name, ItemStack item) {
         this.name = name;
         this.displayName = name;
         this.item = item;
