@@ -1,4 +1,4 @@
-package com.rainchat.placeprotect.data.village;
+package com.rainchat.placeprotect.data.paintclaim;
 
 
 import com.rainchat.placeprotect.data.claim.Region;
@@ -6,10 +6,7 @@ import com.rainchat.placeprotect.data.enums.ClaimPermission;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class PaintClaim {
 
@@ -21,6 +18,7 @@ public class PaintClaim {
     private boolean adminClaim;
 
     private Region region;
+
     private final Set<ClaimMember> claimMembers;
     private final Set<SubClaim> subClaims;
     private final Set<String> villagePermissions;
@@ -61,9 +59,7 @@ public class PaintClaim {
     }
 
     public void add(Set<String> villageGlobalPermissions) {
-        for (String villageGlobalPermission : villageGlobalPermissions) {
-            villagePermissions.add(villageGlobalPermission);
-        }
+        villagePermissions.addAll(villageGlobalPermissions);
     }
 
     public void add(long time) {
@@ -97,7 +93,7 @@ public class PaintClaim {
     public boolean hasPermission(ClaimPermission villagePermission, UUID uuid) {
         ClaimMember claimMember = getMember(uuid);
         if (claimMember != null) {
-            return claimMember.hasPermission(villagePermission);
+            return !claimMember.hasPermission(villagePermission);
         }
         return false;
     }
@@ -171,8 +167,9 @@ public class PaintClaim {
         return owner;
     }
 
-    public boolean isOwner(UUID uuid) {
-        return uuid == owner;
+    public boolean isOwner(String uuid) {
+        if (owner == null) return false;
+        return uuid.equals(owner.toString());
     }
 
     public void setOwner(UUID owner) {

@@ -2,11 +2,14 @@ package com.rainchat.placeprotect.managers;
 
 import com.rainchat.placeprotect.PlaceProtect;
 import com.rainchat.placeprotect.data.claim.Region;
-import com.rainchat.placeprotect.data.village.PaintClaim;
-import com.rainchat.placeprotect.data.village.PaintPlayer;
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.utils.Manager;
+import com.rainchat.placeprotect.utils.claim.PlayerClaimFile;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
@@ -16,11 +19,12 @@ public class ClaimManager extends Manager<PaintClaim> {
     private final Plugin plugin;
 
     private final Map<UUID, PaintPlayer> paintPlayers = new HashMap<>();
+    private final Map<UUID, PlayerClaimFile> paintClaimFiles = new HashMap<>();
 
     public static final ClaimManager INSTANCE = new ClaimManager(PlaceProtect.getInstance());
 
     private ClaimManager(Plugin plugin) {
-        super("date/regions", plugin);
+        super("data/claims/regions", plugin);
         this.plugin = plugin;
     }
 
@@ -35,6 +39,8 @@ public class ClaimManager extends Manager<PaintClaim> {
                 return paintClaim;
             }
         }
+        Inventory inventory = null;
+        inventory.getType().name();
         return null;
     }
 
@@ -48,8 +54,22 @@ public class ClaimManager extends Manager<PaintClaim> {
         return uuid;
     }
 
-    public PaintPlayer getPlayerData(Player player) {
+    public PaintPlayer loadPlayerData(Player player) {
+        if (!paintPlayers.containsKey(player.getUniqueId())) {
+            PlayerClaimFile playerClaimFile = new PlayerClaimFile(player.getUniqueId());
+            PaintPlayer paintPlayer = playerClaimFile.load();
+            paintPlayers.put(player.getUniqueId(),paintPlayer);
+            return paintPlayer;
+        }
         return paintPlayers.computeIfAbsent(player.getUniqueId(), k -> new PaintPlayer(player));
+    }
+
+    public void unLoadPlayerData(Player player) {
+
+        paintClaimFiles.get(player.getUniqueId()).unLoad(loadPlayerData(player));
+
+        paintPlayers.remove(player.getUniqueId());
+        paintClaimFiles.remove(player.getUniqueId());
     }
 
     public List<Region> regionOverlaps(Region region) {
@@ -89,7 +109,7 @@ public class ClaimManager extends Manager<PaintClaim> {
     public List<PaintClaim> getClaims(Player player) {
         List<PaintClaim> strings = new ArrayList<>();
         for (PaintClaim paintClaim : toSet()) {
-            if (paintClaim.getOwner().equals(player.getUniqueId())) {
+            if (paintClaim.isOwner(player.getUniqueId().toString())) {
                 strings.add(paintClaim);
             }
         }
@@ -116,7 +136,7 @@ public class ClaimManager extends Manager<PaintClaim> {
 
     public PaintClaim getClaim(Player player, Location location) {
         for (PaintClaim paintClaim : toSet()) {
-            if (paintClaim.isOwner(player.getUniqueId()) && paintClaim.getRegion().contains(location)) {
+            if (paintClaim.isOwner(player.getUniqueId().toString()) && paintClaim.getRegion().contains(location)) {
                 return paintClaim;
             }
         }

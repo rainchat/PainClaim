@@ -21,6 +21,7 @@ public class OnlinePagination extends BasePagination {
 
             ClickableItem item = ClickableItem.empty(clickItem.build(new PlayerReplacements(player)));
             clickableItems.add(item);
+
         }
 
         getMenu().pagination.setItems(clickableItems);

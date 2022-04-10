@@ -1,7 +1,7 @@
 package com.rainchat.placeprotect.resourses.listeners;
 
 
-import com.rainchat.placeprotect.data.village.PaintPlayer;
+import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
 import com.rainchat.placeprotect.utils.claim.ClaimWriter;
@@ -46,7 +46,7 @@ public class CuboidEvent implements Listener {
 
         if (targetLocation.getBlock().getType() == Material.AIR) return;
 
-        PaintPlayer paintPlayer = claimManager.getPlayerData(player);
+        PaintPlayer paintPlayer = claimManager.loadPlayerData(player);
 
         //##############################
         //       Select Points

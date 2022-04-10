@@ -18,12 +18,12 @@ public class ConnectListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-
+        claimManager.loadPlayerData(event.getPlayer());
     }
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
-        claimManager.getPlayerData(event.getPlayer()).clear();
+        claimManager.unLoadPlayerData(event.getPlayer());
     }
 
 

@@ -1,7 +1,7 @@
 package com.rainchat.placeprotect.resourses.listeners.flags.global;
 
 
-import com.rainchat.placeprotect.data.village.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Animals;
@@ -45,7 +45,7 @@ public class EntityListener implements Listener {
             PaintClaim entityClaim = claimManager.getClaim(entity.getLocation());
             Player player = (Player) event.getDamager();
 
-            if (claimManager.getPlayerData(player).isOverriding()) return;
+            if (claimManager.loadPlayerData(player).isOverriding()) return;
 
             if (entityClaim != null) {
                 if (entityClaim.hasMember(player)) {
@@ -71,13 +71,13 @@ public class EntityListener implements Listener {
             PaintClaim otherVillage = claimManager.getClaim(player2.getLocation());
 
             if (entityVillage != null) {
-                if (claimManager.getPlayerData(player1).isOverriding()) return;
+                if (claimManager.loadPlayerData(player1).isOverriding()) return;
                 if (entityVillage.hasPermission("PVP", player1.getLocation())) {
                     event.setCancelled(true);
                 }
             }
             if (otherVillage != null) {
-                if (claimManager.getPlayerData(player2).isOverriding()) return;
+                if (claimManager.loadPlayerData(player2).isOverriding()) return;
                 if (otherVillage.hasPermission("PVP", player2.getLocation())) {
                     event.setCancelled(true);
                 }

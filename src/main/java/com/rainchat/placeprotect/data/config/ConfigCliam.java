@@ -18,11 +18,14 @@ public class ConfigCliam {
 
     public static String DEFAULT_TITLE;
     public static long CLAIM_EXPIRATION_CLAIM_TIME;
-    public static String CLAIM_GLOBAL_PROTECT_MODE;
-    public static int CLAIM_DEFAULT_CLAIM_LIMIT;
+
     public static List<String> CLAIM_ENABLED_WORLDS_LIST;
-    public static int CLAIM_ADD_PER_MEMBER;
-    public static boolean NEARBY_CHUNKS;
+
+    public static int CLAIM_DEFAULT_CLAIM_LIMIT;
+    public static int CLAIM_MIN_SIZE;
+    public static int CLAIM_MAX_SIZE;
+
+    public static int START_CLAIM_BLOCKS;
 
     public static int SUB_DEFAULT_CLAIM_LIMIT;
     public static int SUB_CLAIM_ADD_PER_MEMBER;
@@ -44,10 +47,12 @@ public class ConfigCliam {
         CLAIM_ENABLED_WORLDS_LIST = config.getStringList("Settings-Claim.enabled-worlds");
         DEFAULT_TITLE = config.getString("Settings-Claim.default-title-description", "A peaceful settlement.");
         CLAIM_EXPIRATION_CLAIM_TIME = config.getLong("Settings-Claim.expiration.time", 5);
-        CLAIM_GLOBAL_PROTECT_MODE = config.getString("Settings-Claim.protect-mode", "protect");
-        CLAIM_DEFAULT_CLAIM_LIMIT = config.getInt("Settings-Claim.default-claim-limit", 6);
-        CLAIM_ADD_PER_MEMBER = config.getInt("Settings-Claim.default-claim-per-member", 2);
-        NEARBY_CHUNKS = config.getBoolean("Settings-Claim.nearby-chunks", false);
+
+        CLAIM_DEFAULT_CLAIM_LIMIT = config.getInt("Claim.claims-limit", 6);
+        CLAIM_MAX_SIZE = config.getInt("Claim.max-claim-size", 256);
+        CLAIM_MIN_SIZE = config.getInt("Claim.min-claim-size", 10);
+
+        START_CLAIM_BLOCKS = config.getInt("Claim.start-blocks", 225);
 
         SUB_DEFAULT_CLAIM_LIMIT = config.getInt("Settings-Sub-Claim.default-claim-limit", 3);
         SUB_CLAIM_ADD_PER_MEMBER = config.getInt("Settings-Sub-Claim.default-claim-per-member", 1);

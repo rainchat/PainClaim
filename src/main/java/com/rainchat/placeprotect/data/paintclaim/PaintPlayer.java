@@ -1,4 +1,4 @@
-package com.rainchat.placeprotect.data.village;
+package com.rainchat.placeprotect.data.paintclaim;
 
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
 import com.rainchat.placeprotect.utils.visual.Visualization;
@@ -13,6 +13,9 @@ public class PaintPlayer {
 
     private int availableBlocks;
 
+    private int bonusBlocks;
+    private int claimBlocks;
+
     private Visualization visualization;
     private boolean overriding;
 
@@ -22,6 +25,38 @@ public class PaintPlayer {
         this.playerUUID = player.getUniqueId();
         this.visualization = new Visualization();
         this.claimInteraction = new PlayerClaimInteraction();
+    }
+
+    public UUID getPlayerUUID() {
+        return playerUUID;
+    }
+
+    public void setPaintClaim(PaintClaim paintClaim) {
+        this.paintClaim = paintClaim;
+    }
+
+    public void setAvailableBlocks(int availableBlocks) {
+        this.availableBlocks = availableBlocks;
+    }
+
+    public int getBonusBlocks() {
+        return bonusBlocks;
+    }
+
+    public void setBonusBlocks(int bonusBlocks) {
+        this.bonusBlocks = bonusBlocks;
+    }
+
+    public int getClaimBlocks() {
+        return claimBlocks;
+    }
+
+    public void setClaimBlocks(int claimBlocks) {
+        this.claimBlocks = claimBlocks;
+    }
+
+    public void setOverriding(boolean overriding) {
+        this.overriding = overriding;
     }
 
     public Player getPlayer() {

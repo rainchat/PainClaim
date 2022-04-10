@@ -5,7 +5,7 @@ import com.rainchat.placeprotect.api.placeholder.ClaimReplcements;
 import com.rainchat.placeprotect.api.placeholder.FlagReplacements;
 import com.rainchat.placeprotect.data.config.ConfigFlags;
 import com.rainchat.placeprotect.data.flag.FlagClaim;
-import com.rainchat.placeprotect.data.village.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.managers.FlagManager;
 import com.rainchat.placeprotect.utils.general.Chat;
@@ -38,7 +38,7 @@ public class FlagsPagination extends BasePagination {
             FlagReplacements flagReplacements = new FlagReplacements(flagClaim, ConfigFlags.FLAG_ITEM.get(flagClaim.getName()), paintClaim.hasPermission(flagClaim.getName()));
             ClickableItem item = ClickableItem.empty(permissionGlobal(flagClaim.getName(), clickItem, paintClaim.hasPermission(flagClaim.getName()), flagReplacements));
             item.setClick(event -> {
-                if (!player.hasPermission("village.flag." + flagClaim.getName())) return;
+                if (!player.hasPermission("paintclaim.flag." + flagClaim.getName())) return;
 
                 if (paintClaim.hasPermission(flagClaim.getName())) {
                     paintClaim.remove(flagClaim.getName());
@@ -58,6 +58,10 @@ public class FlagsPagination extends BasePagination {
             });
 
             clickableItems.add(item);
+        }
+
+        if (clickableItems.size() < 1) {
+            clickableItems.add(ClickableItem.empty(new ItemStack(Material.AIR)));
         }
 
         getMenu().pagination.setItems(clickableItems);

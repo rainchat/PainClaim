@@ -1,6 +1,8 @@
 package com.rainchat.placeprotect.resourses.commands;
 
 
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.managers.MenuManager;
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
@@ -22,11 +24,11 @@ public class AdminCommands {
     @Subcommand("adminmode")
     @CommandPermission("paintclain.commands.adminmode")
     public void onMode(Player player) {
-        claimManager.getPlayerData(player).setOverriding();
-        claimManager.getPlayerData(player).clear();
-        claimManager.getPlayerData(player).getClaimInteraction().setMode(ClaimMode.CREATE_ADMIN);
+        claimManager.loadPlayerData(player).setOverriding();
+        claimManager.loadPlayerData(player).clear();
+        claimManager.loadPlayerData(player).getClaimInteraction().setMode(ClaimMode.CREATE_ADMIN);
 
-        player.sendMessage("Вы установили режим админа:" + claimManager.getPlayerData(player).isOverriding());
+        player.sendMessage("Вы установили режим админа:" + claimManager.loadPlayerData(player).isOverriding());
 
     }
 
@@ -34,6 +36,17 @@ public class AdminCommands {
     @CommandPermission("paintclain.commands.adminlist")
     public void onAdminList(Player player) {
         MenuManager.getInstance().openMenu(player,"test");
+    }
+
+
+    @Subcommand("addBlocks")
+    @CommandPermission("paintclain.commands.adminlist")
+    public void onAddClaim(Player player, Player target, int blocks) {
+        PaintPlayer paintPlayer = claimManager.loadPlayerData(target);
+        PaintClaim paintClaim = claimManager.getClaim(target.getLocation());
+
+        paintPlayer.setBonusBlocks(paintPlayer.getBonusBlocks() + blocks);
+        paintPlayer.setAvailableBlocks(paintPlayer.getAvailableBlocks() + blocks);
     }
 
 }

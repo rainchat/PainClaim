@@ -1,26 +1,28 @@
-# Pueblos plugin by RonanCraft! (Join my Public Server mc.RonanCraft.net) #
-# Need help? go to https://ronancraft.net/discord! #
+  Settings-Global:
+    # languages en_En,ru_Ru...
+    default-language: en_EN
+    economy-enable: false
 
+  Claim: # Forced claim options
+    item: 'feather'
+    claims-limit: 5
 
-Settings-Global:
-  # languages en_En,ru_Ru...
-  default-language: en_EN
-  economy-enable: false
+    start-blocks: 225
+    blocks-per-tick: 4
+    tick-time: 1
 
-Claim: # Forced claim options
-  Item: 'golden_shovel'
-  MinSize: 10
-  MaxSize: 256
-  WorldsEnabled:
-    - world
-  MaxClaims: 5
+    min-claim-size: 10
+    max-claim-size: 256
 
-Global: # Settings that affect the whole server, not just claims
-  EndermenMoveBlocks: false
-  SilverfishBreakBlocks: false
-  RabbitsEatCrops: false
+    worlds-enable:
+      - world
 
-Placeholders:
-  enable-flag: '&aenable'
-  disable-flag:  '&cdisable'
-  exapmle-color: '<#12345>'
+  Global: # Settings that affect the whole server, not just claims
+    EndermenMoveBlocks: false
+    SilverfishBreakBlocks: false
+    RabbitsEatCrops: false
+
+  Placeholders:
+    enable-flag: '&aenable'
+    disable-flag:  '&cdisable'
+    exapmle-color: '<#12345>'

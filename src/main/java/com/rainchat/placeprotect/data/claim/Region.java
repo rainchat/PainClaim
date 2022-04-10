@@ -96,7 +96,14 @@ public class Region {
         int xDim = (int) Math.ceil(Math.abs(getMaxX() - getMinX()+1)); //Might be Math.floor for all I know, you do the testing
         int zDim =(int) Math.ceil(Math.abs(getMaxZ() - getMinZ()+1));
 
-        return new String(xDim + "x" + zDim);
+        return xDim + "x" + zDim;
+    }
+
+    public int getValueSize() {
+        int xDim = (int) Math.ceil(Math.abs(getMaxX() - getMinX()+1)); //Might be Math.floor for all I know, you do the testing
+        int zDim =(int) Math.ceil(Math.abs(getMaxZ() - getMinZ()+1));
+
+        return xDim * zDim;
     }
 
 

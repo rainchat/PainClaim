@@ -1,13 +1,10 @@
 package com.rainchat.placeprotect.api.placeholder;
 
-import com.rainchat.placeprotect.data.village.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.utils.placeholder.BaseReplacements;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class ClaimReplcements extends BaseReplacements<PaintClaim> {
 
@@ -37,7 +34,15 @@ public class ClaimReplcements extends BaseReplacements<PaintClaim> {
                 return paintClaim.getId().toString();
 
             case "owner":
+                if (paintClaim.isAdminClaim()) {
+                    return "admin";
+                }
                 return Objects.requireNonNull(Bukkit.getPlayer(paintClaim.getOwner())).getName();
+            case "owner_uuid":
+                if (paintClaim.isAdminClaim()) {
+                    return "admin";
+                }
+                return paintClaim.getOwner().toString();
 
         }
 

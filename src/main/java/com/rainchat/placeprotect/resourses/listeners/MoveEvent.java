@@ -2,8 +2,8 @@ package com.rainchat.placeprotect.resourses.listeners;
 
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import com.rainchat.placeprotect.data.claim.Region;
-import com.rainchat.placeprotect.data.village.PaintClaim;
-import com.rainchat.placeprotect.data.village.PaintPlayer;
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +28,7 @@ public class MoveEvent implements Listener {
         }
 
         Player player = event.getPlayer();
-        PaintPlayer paintPlayer = claimManager.getPlayerData(player);
+        PaintPlayer paintPlayer = claimManager.loadPlayerData(player);
 
         PaintClaim paintClaim = claimManager.getClaim(event.getTo());
 

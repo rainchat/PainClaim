@@ -20,6 +20,8 @@ public class FlagManager {
         flagClaims.add(new FlagClaim("EXPLOSIONS",new ItemStack(Material.LIME_DYE)));
         flagClaims.add(new FlagClaim("DAMAGE_ANIMALS",new ItemStack(Material.LIME_DYE)));
         flagClaims.add(new FlagClaim("FIRE_SPREAD",new ItemStack(Material.LIME_DYE)));
+        flagClaims.add(new FlagClaim("MONSTERS_SPAWN",new ItemStack(Material.LIME_DYE)));
+        flagClaims.add(new FlagClaim("ANIMALS_SPAWN",new ItemStack(Material.LIME_DYE)));
 
     }
 

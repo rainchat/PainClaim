@@ -1,4 +1,4 @@
-package com.rainchat.placeprotect.data.village;
+package com.rainchat.placeprotect.data.paintclaim;
 
 
 import com.rainchat.placeprotect.data.claim.Cuboid;

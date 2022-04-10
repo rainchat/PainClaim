@@ -1,10 +1,7 @@
 package com.rainchat.placeprotect.builder;
 
 
-import com.rainchat.placeprotect.builder.pagination.Action;
-import com.rainchat.placeprotect.builder.pagination.ClaimsPagination;
-import com.rainchat.placeprotect.builder.pagination.FlagsPagination;
-import com.rainchat.placeprotect.builder.pagination.OnlinePagination;
+import com.rainchat.placeprotect.builder.pagination.*;
 import com.rainchat.placeprotect.utils.builder.Builder;
 import com.rainchat.placeprotect.utils.builder.CollectionUtils;
 import com.rainchat.placeprotect.utils.menus.MenuConstructor;
@@ -23,7 +20,9 @@ public class PaginationBuilder extends Builder<String, Action> {
     private void registerDefaultActions() {
         register(s -> new OnlinePagination(), "online-players");
         register(s -> new ClaimsPagination(), "claims");
-            register(s -> new FlagsPagination(), "flags");
+        register(s -> new FlagsPagination(), "flags");
+        register(s -> new ClaimMembersPagination(), "members");
+        register(s -> new ClaimPermissionsPagination(), "permissions");
     }
 
     public List<Action> getActions(MenuConstructor menuConstructor, Object object) {

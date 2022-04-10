@@ -27,8 +27,8 @@ public class Visualization {
     public void apply(Player player) {
         //if he has any current visualization, clear it first
 
-        if (PlaceProtect.getClaimManager().getPlayerData(player).getVisualization() != null) {
-            PlaceProtect.getClaimManager().getPlayerData(player).getVisualization().revert(player);
+        if (PlaceProtect.getClaimManager().loadPlayerData(player).getVisualization() != null) {
+            PlaceProtect.getClaimManager().loadPlayerData(player).getVisualization().revert(player);
         }
 
         //if they are online, create a task to send them the visualization
@@ -40,7 +40,7 @@ public class Visualization {
     public void revert(Player player) {
         if (!player.isOnline()) return;
 
-        Visualization visualization = PlaceProtect.getClaimManager().getPlayerData(player).getVisualization();
+        Visualization visualization = PlaceProtect.getClaimManager().loadPlayerData(player).getVisualization();
 
         if (visualization != null) {
 
@@ -49,7 +49,7 @@ public class Visualization {
                 element.getLocation().getBlock().getState().update();
             }
 
-            PlaceProtect.getClaimManager().getPlayerData(player).removeVisualization();
+            PlaceProtect.getClaimManager().loadPlayerData(player).removeVisualization();
         }
     }
 

@@ -3,9 +3,10 @@ package com.rainchat.placeprotect.utils.claim;
 import com.rainchat.placeprotect.api.events.PaintClaimCreateEvent;
 import com.rainchat.placeprotect.api.events.PaintClaimResizeEvent;
 import com.rainchat.placeprotect.data.claim.Region;
-import com.rainchat.placeprotect.data.village.PaintClaim;
-import com.rainchat.placeprotect.data.village.PaintPlayer;
-import com.rainchat.placeprotect.data.village.PlayerClaimInteraction;
+import com.rainchat.placeprotect.data.config.ConfigCliam;
+import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
+import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
+import com.rainchat.placeprotect.data.paintclaim.PlayerClaimInteraction;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.utils.visual.Visualization;
 import com.rainchat.placeprotect.utils.visual.VisualizationType;
@@ -34,7 +35,6 @@ public class ClaimWriter {
             paintClaim = new PaintClaim(player.getName(),player.getUniqueId(), claimManager.generateUUID());
         }
         paintClaim.setRegion(region);
-        paintClaim.add("FIRE_SPREAD");
 
         Visualization visualization = Visualization.fromClaim(region,player.getLocation().getBlockY(), paintPlayer.getClaimInteraction().getVisual(), player.getLocation());
         paintPlayer.clear();
@@ -44,15 +44,27 @@ public class ClaimWriter {
         //            Checks
         //##############################
 
+
         //Intersects with other regions
-        if (ClaimWriter.isOverlaps(region,paintPlayer)) {
+        if (claimManager.getClaims(player).size() > ConfigCliam.CLAIM_DEFAULT_CLAIM_LIMIT  && !paintPlayer.isOverriding()) {
+            Bukkit.broadcastMessage("Превышен лимит регионов");
+            return;
+        }
+
+        if (paintPlayer.getAvailableBlocks() < paintClaim.getRegion().getValueSize() && !paintPlayer.isOverriding()) {
+            Bukkit.broadcastMessage("Недостаточно блоков для привата");
+            paintPlayer.clear();
+            return;
+        }
+
+        //Intersects with other regions
+        if (isOverlaps(region,paintPlayer)) {
             Bukkit.broadcastMessage("Создаваемый регион пересикается с другим регионом");
             return;
         }
-        //Max claims
-        //have claim blocks
+
         //claim size
-        if (!region.acceptableSize(10,256) && !paintPlayer.isOverriding()) {
+        if (!region.acceptableSize(ConfigCliam.CLAIM_MIN_SIZE,ConfigCliam.CLAIM_MAX_SIZE) && !paintPlayer.isOverriding()) {
             Bukkit.broadcastMessage("Размер вашего региона не соответствует требованиям");
             paintPlayer.clear();
             return;
@@ -64,6 +76,10 @@ public class ClaimWriter {
 
         if (landEvent.isCancelled()) {
             return;
+        }
+
+        if (!paintPlayer.isOverriding()) {
+            paintPlayer.setAvailableBlocks(paintPlayer.getAvailableBlocks()-paintClaim.getRegion().getValueSize());
         }
 
         claimManager.add(paintClaim);

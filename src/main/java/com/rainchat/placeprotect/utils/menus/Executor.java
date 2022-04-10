@@ -3,7 +3,6 @@ package com.rainchat.placeprotect.utils.menus;
 
 import com.hakan.inventoryapi.InventoryAPI;
 import com.rainchat.placeprotect.PlaceProtect;
-import com.rainchat.placeprotect.data.village.PaintClaim;
 import com.rainchat.placeprotect.hooks.PlaceholderAPIBridge;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.managers.MenuManager;
@@ -12,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,7 +84,7 @@ public class Executor {
                 break;
             case "menu-open":
                 String[] words = action.split(" ");
-                HashMap<String, String> param = new HashMap<>();
+                HashMap<String, String> param = menuConstructor.parameter;
                 for (String word: words) {
                     String[] parse = word.split(":");
                     if (parse.length > 1) {
