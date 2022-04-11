@@ -60,8 +60,8 @@ public class PlayerClaimFile {
         } else {
             PaintPlayer paintClaim = new PaintPlayer(player);
             paintClaim.setClaimBlocks( userConfig.getInt("User.claim-blocks", ConfigCliam.START_CLAIM_BLOCKS));
-            paintClaim.setClaimBlocks( userConfig.getInt("User.bonus-blocks", 0));
-            paintClaim.setClaimBlocks( userConfig.getInt("User.available-blocks", ConfigCliam.START_CLAIM_BLOCKS));
+            paintClaim.setBonusBlocks( userConfig.getInt("User.bonus-blocks", 0));
+            paintClaim.setAvailableBlocks( userConfig.getInt("User.available-blocks", ConfigCliam.START_CLAIM_BLOCKS));
             //paintClaim.setBonusBlocks();
 
             return paintClaim;
@@ -76,7 +76,7 @@ public class PlayerClaimFile {
         try {
 
             userConfig.set("User.name", paintClaim.getPlayer().getName());
-            userConfig.set("User.unique-id", paintClaim.getPlayer().getUniqueId());
+            userConfig.set("User.unique-id", paintClaim.getPlayer().getUniqueId().toString());
             userConfig.set("User.claim-blocks", paintClaim.getClaimBlocks());
             userConfig.set("User.available-blocks", paintClaim.getAvailableBlocks());
             userConfig.set("User.bonus-blocks", paintClaim.getBonusBlocks());

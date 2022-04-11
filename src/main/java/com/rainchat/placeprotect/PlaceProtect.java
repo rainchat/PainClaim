@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rainchat.placeprotect.builder.PaginationBuilder;
 import com.rainchat.placeprotect.data.config.ConfigFlags;
 import com.rainchat.placeprotect.data.config.ConfigCliam;
+import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
@@ -26,6 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import revxrsal.commands.bukkit.BukkitCommandHandler;
 
 import java.util.Set;
+import java.util.logging.Level;
 
 public final class PlaceProtect extends JavaPlugin {
 
@@ -41,11 +43,16 @@ public final class PlaceProtect extends JavaPlugin {
         flagManager = FlagManager.INSTANCE;
 
         FileManager fileManager = FileManager.getInstance();
-        fileManager.registerCustomFilesFolder("menus");
-        fileManager.setup(this);
+        fileManager.registerCustomFilesFolder("menus")
+                .registerCustomFilesFolder("/language")
+                .registerDefaultGenerateFiles("En_en.yml", "/language", "/language")
+                .setup(this);
 
         ConfigCliam.setup();
         ConfigFlags.setup();
+
+        LanguageFile.setConfiguration(fileManager.getFile(ConfigCliam.LANGUAGE));
+        getServer().getLogger().log(Level.INFO, "Registered " + LanguageFile.addMissingMessages() + " message(s).");
 
         PaginationBuilder actionBuilder = PaginationBuilder.INSTANCE;
 

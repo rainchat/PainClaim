@@ -1,6 +1,8 @@
 package com.rainchat.placeprotect.resourses.commands;
 
 
+import com.rainchat.placeprotect.api.placeholder.ClaimReplcements;
+import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.data.enums.ClaimPermission;
 import com.rainchat.placeprotect.data.paintclaim.ClaimMember;
 import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
@@ -10,6 +12,7 @@ import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.managers.MenuManager;
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
 import com.rainchat.placeprotect.utils.claim.ClaimWriter;
+import com.rainchat.placeprotect.utils.general.Chat;
 import org.bukkit.entity.Player;
 import revxrsal.commands.annotation.Command;
 import revxrsal.commands.annotation.Subcommand;
@@ -77,15 +80,7 @@ public class ClaimCommand {
         PaintPlayer paintPlayer = claimManager.loadPlayerData(player);
         PaintClaim paintClaim = claimManager.getClaim(player.getLocation());
 
-        player.sendMessage("Доступных блоков " + paintPlayer.getAvailableBlocks());
-        player.sendMessage("Текущие блоки " + paintPlayer.getClaimBlocks());
-        player.sendMessage("Доп блоки " + paintPlayer.getBonusBlocks());
-        if (paintClaim == null) {
-            player.sendMessage("Вы не в регионе");
-        } else {
-            player.sendMessage("Вы в регионе");
-        }
-
+        Chat.sendTranslation(player,true, LanguageFile.CLAIM_INFO.getMessage(), new ClaimReplcements(paintClaim));
     }
 
     @Subcommand("add")
@@ -96,13 +91,13 @@ public class ClaimCommand {
 
         if (paintClaim != null) {
             if (paintClaim.isOwner(player.getUniqueId().toString())) {
-                player.sendMessage("Вы добавили игрока");
+                Chat.sendTranslation(player,true, LanguageFile.CLAIM_ADD_PLAYER.getMessage(), new ClaimReplcements(paintClaim));
                 paintClaim.add(new ClaimMember(target.getUniqueId()));
             } else {
                 player.sendMessage("Вы не добавили игрока");
             }
         } else {
-            player.sendMessage("Вы в регионе");
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_NOT_IN_CLAIM.getMessage(), new ClaimReplcements(paintClaim));
         }
 
     }

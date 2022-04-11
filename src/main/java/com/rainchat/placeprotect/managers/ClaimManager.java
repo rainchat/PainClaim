@@ -39,8 +39,6 @@ public class ClaimManager extends Manager<PaintClaim> {
                 return paintClaim;
             }
         }
-        Inventory inventory = null;
-        inventory.getType().name();
         return null;
     }
 
@@ -58,7 +56,8 @@ public class ClaimManager extends Manager<PaintClaim> {
         if (!paintPlayers.containsKey(player.getUniqueId())) {
             PlayerClaimFile playerClaimFile = new PlayerClaimFile(player.getUniqueId());
             PaintPlayer paintPlayer = playerClaimFile.load();
-            paintPlayers.put(player.getUniqueId(),paintPlayer);
+            paintPlayers.put(player.getUniqueId(), paintPlayer);
+            paintClaimFiles.put(player.getUniqueId(), playerClaimFile);
             return paintPlayer;
         }
         return paintPlayers.computeIfAbsent(player.getUniqueId(), k -> new PaintPlayer(player));

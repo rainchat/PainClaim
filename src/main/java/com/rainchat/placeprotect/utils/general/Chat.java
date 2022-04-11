@@ -1,6 +1,7 @@
 package com.rainchat.placeprotect.utils.general;
 
 
+import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.utils.placeholder.PlaceholderSupply;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -131,7 +132,7 @@ public class Chat {
             }
         }
         if (!template.isEmpty() && prefixed) {}
-            //template = Message.PREFIX.toString() + template;
+            template = LanguageFile.PREFIX.getMessage() + template;
 
         return template;
     }

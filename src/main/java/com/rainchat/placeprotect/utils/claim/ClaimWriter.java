@@ -2,12 +2,15 @@ package com.rainchat.placeprotect.utils.claim;
 
 import com.rainchat.placeprotect.api.events.PaintClaimCreateEvent;
 import com.rainchat.placeprotect.api.events.PaintClaimResizeEvent;
+import com.rainchat.placeprotect.api.placeholder.ClaimReplcements;
 import com.rainchat.placeprotect.data.claim.Region;
 import com.rainchat.placeprotect.data.config.ConfigCliam;
+import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.data.paintclaim.PlayerClaimInteraction;
 import com.rainchat.placeprotect.managers.ClaimManager;
+import com.rainchat.placeprotect.utils.general.Chat;
 import com.rainchat.placeprotect.utils.visual.Visualization;
 import com.rainchat.placeprotect.utils.visual.VisualizationType;
 import org.bukkit.Bukkit;
@@ -47,25 +50,25 @@ public class ClaimWriter {
 
         //Intersects with other regions
         if (claimManager.getClaims(player).size() > ConfigCliam.CLAIM_DEFAULT_CLAIM_LIMIT  && !paintPlayer.isOverriding()) {
-            Bukkit.broadcastMessage("Превышен лимит регионов");
-            return;
-        }
-
-        if (paintPlayer.getAvailableBlocks() < paintClaim.getRegion().getValueSize() && !paintPlayer.isOverriding()) {
-            Bukkit.broadcastMessage("Недостаточно блоков для привата");
-            paintPlayer.clear();
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_LIMIT_REGIONS.getMessage(), new ClaimReplcements(paintClaim));
             return;
         }
 
         //Intersects with other regions
         if (isOverlaps(region,paintPlayer)) {
-            Bukkit.broadcastMessage("Создаваемый регион пересикается с другим регионом");
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_OVERLAPS.getMessage(), new ClaimReplcements(paintClaim));
+            return;
+        }
+
+        if (paintPlayer.getAvailableBlocks() < paintClaim.getRegion().getValueSize() && !paintPlayer.isOverriding()) {
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_LIMIT_BLOCKS.getMessage(), new ClaimReplcements(paintClaim));
+            paintPlayer.clear();
             return;
         }
 
         //claim size
         if (!region.acceptableSize(ConfigCliam.CLAIM_MIN_SIZE,ConfigCliam.CLAIM_MAX_SIZE) && !paintPlayer.isOverriding()) {
-            Bukkit.broadcastMessage("Размер вашего региона не соответствует требованиям");
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_INVALID_SIZE.getMessage(), new ClaimReplcements(paintClaim));
             paintPlayer.clear();
             return;
         }
@@ -87,7 +90,7 @@ public class ClaimWriter {
         paintPlayer.setVisualization(visualization);
 
 
-        Bukkit.broadcastMessage("Вы создали регион");
+        Chat.sendTranslation(player,true, LanguageFile.CLAIM_CREATE.getMessage(), new ClaimReplcements(paintClaim));
     }
 
     public static void createSubClaim() {
@@ -132,12 +135,12 @@ public class ClaimWriter {
         paintPlayer.getClaimInteraction().setPos2(null);
 
         if (isOverlaps(region,paintPlayer,paintPlayer.getClaimInteraction().getEditing().getRegion())) {
-            Bukkit.broadcastMessage("Создаваемый регион пересикается с другим регионом");
+            Chat.sendTranslation(paintPlayer.getPlayer(), true, LanguageFile.CLAIM_OVERLAPS.getMessage(), new ClaimReplcements(paintPlayer.getClaimInteraction().getEditing()));
             paintPlayer.clear();
             return;
         }
-        if (!region.acceptableSize(10,256)) {
-            Bukkit.broadcastMessage("Размер вашего региона не соответствует требованиям");
+        if (!region.acceptableSize(ConfigCliam.CLAIM_MIN_SIZE,ConfigCliam.CLAIM_MAX_SIZE)) {
+            Chat.sendTranslation(paintPlayer.getPlayer(), true, LanguageFile.CLAIM_INVALID_SIZE.getMessage(), new ClaimReplcements(paintPlayer.getClaimInteraction().getEditing()));
             paintPlayer.clear();
             return;
         }

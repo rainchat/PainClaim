@@ -1,11 +1,14 @@
 package com.rainchat.placeprotect.resourses.commands;
 
 
+import com.rainchat.placeprotect.api.placeholder.ClaimReplcements;
+import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
 import com.rainchat.placeprotect.managers.MenuManager;
 import com.rainchat.placeprotect.utils.claim.ClaimMode;
+import com.rainchat.placeprotect.utils.general.Chat;
 import org.bukkit.entity.Player;
 import revxrsal.commands.annotation.Command;
 import revxrsal.commands.annotation.Subcommand;
@@ -28,7 +31,7 @@ public class AdminCommands {
         claimManager.loadPlayerData(player).clear();
         claimManager.loadPlayerData(player).getClaimInteraction().setMode(ClaimMode.CREATE_ADMIN);
 
-        player.sendMessage("Вы установили режим админа:" + claimManager.loadPlayerData(player).isOverriding());
+        Chat.sendTranslation(player,true, LanguageFile.CLAIM_ADMIN_MODE.getMessage());
 
     }
 
@@ -47,6 +50,11 @@ public class AdminCommands {
 
         paintPlayer.setBonusBlocks(paintPlayer.getBonusBlocks() + blocks);
         paintPlayer.setAvailableBlocks(paintPlayer.getAvailableBlocks() + blocks);
+        Chat.sendTranslation(player,true, LanguageFile.CLAIM_ADMIN_ADD_BLOCKS.getMessage().
+                replace("%target_name%", target.getName()).
+                replace("%player_name%", player.getName()).
+                replace("%blocks_add%", String.valueOf(blocks))
+                );
     }
 
 }
