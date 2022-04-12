@@ -8,8 +8,8 @@
     claims-limit: 5
 
     start-blocks: 225
-    blocks-per-tick: 4
-    tick-time: 1
+    blocks-per-minut: 4
+
 
     min-claim-size: 10
     max-claim-size: 256

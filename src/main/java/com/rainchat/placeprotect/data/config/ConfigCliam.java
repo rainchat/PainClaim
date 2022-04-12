@@ -16,7 +16,7 @@ public class ConfigCliam {
     public static boolean ECONOMY_ENABLE;
     public static List<String> REGIONS_WORLD_GUARD;
 
-    public static String DEFAULT_TITLE;
+
     public static long CLAIM_EXPIRATION_CLAIM_TIME;
 
     public static List<String> CLAIM_ENABLED_WORLDS_LIST;
@@ -26,6 +26,8 @@ public class ConfigCliam {
     public static int CLAIM_MAX_SIZE;
 
     public static int START_CLAIM_BLOCKS;
+    public static int MAX_BLOCK_BONUS;
+    public static int ADD_BLOCK_PER_MINUTE;
 
     public static int SUB_DEFAULT_CLAIM_LIMIT;
     public static int SUB_CLAIM_ADD_PER_MEMBER;
@@ -45,14 +47,18 @@ public class ConfigCliam {
         REGIONS_WORLD_GUARD = config.getStringList("WorldGuard.ignores-regions");
 
         CLAIM_ENABLED_WORLDS_LIST = config.getStringList("Settings-Claim.enabled-worlds");
-        DEFAULT_TITLE = config.getString("Settings-Claim.default-title-description", "A peaceful settlement.");
+
         CLAIM_EXPIRATION_CLAIM_TIME = config.getLong("Settings-Claim.expiration.time", 5);
 
         CLAIM_DEFAULT_CLAIM_LIMIT = config.getInt("Claim.claims-limit", 6);
+
+
         CLAIM_MAX_SIZE = config.getInt("Claim.max-claim-size", 256);
         CLAIM_MIN_SIZE = config.getInt("Claim.min-claim-size", 10);
 
         START_CLAIM_BLOCKS = config.getInt("Claim.start-blocks", 225);
+        MAX_BLOCK_BONUS = config.getInt("Claim.start-blocks", 25000);
+        ADD_BLOCK_PER_MINUTE = config.getInt("Claim.add-blocks-per-minute", 4);
 
         SUB_DEFAULT_CLAIM_LIMIT = config.getInt("Settings-Sub-Claim.default-claim-limit", 3);
         SUB_CLAIM_ADD_PER_MEMBER = config.getInt("Settings-Sub-Claim.default-claim-per-member", 1);

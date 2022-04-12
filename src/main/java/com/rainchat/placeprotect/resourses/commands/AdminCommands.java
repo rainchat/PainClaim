@@ -2,6 +2,7 @@ package com.rainchat.placeprotect.resourses.commands;
 
 
 import com.rainchat.placeprotect.api.placeholder.ClaimReplcements;
+import com.rainchat.placeprotect.data.config.ClaimNameConfig;
 import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
@@ -32,6 +33,14 @@ public class AdminCommands {
         claimManager.loadPlayerData(player).getClaimInteraction().setMode(ClaimMode.CREATE_ADMIN);
 
         Chat.sendTranslation(player,true, LanguageFile.CLAIM_ADMIN_MODE.getMessage());
+
+    }
+
+    @Subcommand("random")
+    @CommandPermission("paintclain.commands.adminmode")
+    public void onGen(Player player) {
+
+        Chat.sendTranslation(player,true, ClaimNameConfig.getClaimName());
 
     }
 

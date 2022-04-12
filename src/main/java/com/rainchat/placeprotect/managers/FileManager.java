@@ -348,7 +348,8 @@ public class FileManager {
         //ENUM_NAME("fileName.yml", "newFileLocation.yml", "oldFileLocation.yml"),
         CONFIG("config.yml", "config.yml"),
         FLAGS("flags.yml", "flags.yml"),
-        ROLES("roles.yml", "roles.yml");
+        ROLES("roles.yml", "roles.yml"),
+        GENERATOR("ClaimName.yml", "ClaimName.yml");
 
         private final String fileName;
         private final String fileJar;

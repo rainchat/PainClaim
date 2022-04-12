@@ -2,6 +2,7 @@ package com.rainchat.placeprotect;
 
 import com.google.gson.reflect.TypeToken;
 import com.rainchat.placeprotect.builder.PaginationBuilder;
+import com.rainchat.placeprotect.data.config.ClaimNameConfig;
 import com.rainchat.placeprotect.data.config.ConfigFlags;
 import com.rainchat.placeprotect.data.config.ConfigCliam;
 import com.rainchat.placeprotect.data.config.LanguageFile;
@@ -22,8 +23,11 @@ import com.rainchat.placeprotect.resourses.listeners.flags.global.EntityListener
 import com.rainchat.placeprotect.resourses.listeners.flags.global.MonsterSpawningListener;
 import com.rainchat.placeprotect.resourses.listeners.flags.local.ClaimListener;
 import com.rainchat.placeprotect.resourses.listeners.flags.local.PlayerListener;
+import com.rainchat.placeprotect.schedullers.ClaimBlocksTask;
 import com.rainchat.placeprotect.utils.claim.ClaimWriter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import revxrsal.commands.bukkit.BukkitCommandHandler;
 
 import java.util.Set;
@@ -35,6 +39,8 @@ public final class PlaceProtect extends JavaPlugin {
     private static ClaimManager claimManager;
     private static FlagManager flagManager;
     private final MenuManager menuManager = MenuManager.getInstance();
+
+    private ClaimBlocksTask claimBlocksTask;
 
     @Override
     public void onEnable() {
@@ -50,6 +56,7 @@ public final class PlaceProtect extends JavaPlugin {
 
         ConfigCliam.setup();
         ConfigFlags.setup();
+        ClaimNameConfig.setup(FileManager.Files.GENERATOR.getFile());
 
         LanguageFile.setConfiguration(fileManager.getFile(ConfigCliam.LANGUAGE));
         getServer().getLogger().log(Level.INFO, "Registered " + LanguageFile.addMissingMessages() + " message(s).");
@@ -62,6 +69,9 @@ public final class PlaceProtect extends JavaPlugin {
         }.getType());
 
         ClaimWriter.setup(claimManager);
+
+        claimBlocksTask = new ClaimBlocksTask(claimManager);
+        claimBlocksTask.runTaskTimer(this, 0, 20);
 
         //Commands register
         BukkitCommandHandler commandHandler = BukkitCommandHandler.create(this);
@@ -92,7 +102,8 @@ public final class PlaceProtect extends JavaPlugin {
         for (PaintPlayer paintPlayer: claimManager.getPlayers()) {
             paintPlayer.getVisualization().revert(paintPlayer.getPlayer());
         }
-        // Plugin shutdown logic
+
+        claimBlocksTask.cancel();
     }
 
     public static PlaceProtect getInstance() {

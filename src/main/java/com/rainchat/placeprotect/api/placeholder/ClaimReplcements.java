@@ -29,10 +29,8 @@ public class ClaimReplcements extends BaseReplacements<PaintClaim> {
         switch (base) {
             case "name":
                 return paintClaim.getName();
-
             case "uuid":
                 return paintClaim.getId().toString();
-
             case "owner":
                 if (paintClaim.isAdminClaim()) {
                     return "admin";
@@ -43,6 +41,10 @@ public class ClaimReplcements extends BaseReplacements<PaintClaim> {
                     return "admin";
                 }
                 return paintClaim.getOwner().toString();
+            case "size":
+                return paintClaim.getRegion().getSize();
+            case "value":
+                return String.valueOf(paintClaim.getRegion().getValueSize());
 
         }
 

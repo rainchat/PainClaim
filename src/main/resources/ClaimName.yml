@@ -1,0 +1,23 @@
+name-formats:
+  - '%generator_nouns% %generator_town%'
+  - '%generator_nouns% %generator_town%'
+  - '%generator_nouns% %generator_town%'
+
+
+nouns:
+  - Дружелюбный
+  - Прощальный
+  - Воздушный
+  - Райский
+  - Адский
+  - Титанический
+  - Древний
+town:
+  - Вавилон
+  - Ягуар
+  - Ларкамор
+  - Тратуар
+  - Византия
+  - Арабик
+  - Уголок
+  - Трон

@@ -18,7 +18,7 @@ public class ConnectListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        claimManager.loadPlayerData(event.getPlayer());
+        claimManager.calculatePlayer(event.getPlayer(), claimManager.loadPlayerData(event.getPlayer()));
     }
 
     @EventHandler

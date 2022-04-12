@@ -46,7 +46,9 @@ public class ClaimWriter {
         //##############################
         //            Checks
         //##############################
-
+        if (!paintPlayer.isOverriding()) {
+            claimManager.calculatePlayer(player, paintPlayer);
+        }
 
         //Intersects with other regions
         if (claimManager.getClaims(player).size() > ConfigCliam.CLAIM_DEFAULT_CLAIM_LIMIT  && !paintPlayer.isOverriding()) {
@@ -60,7 +62,8 @@ public class ClaimWriter {
             return;
         }
 
-        if (paintPlayer.getAvailableBlocks() < paintClaim.getRegion().getValueSize() && !paintPlayer.isOverriding()) {
+
+        if (paintPlayer.getAvailableBlocks()-paintClaim.getRegion().getValueSize() < 0 && !paintPlayer.isOverriding()) {
             Chat.sendTranslation(player,true, LanguageFile.CLAIM_LIMIT_BLOCKS.getMessage(), new ClaimReplcements(paintClaim));
             paintPlayer.clear();
             return;
@@ -82,7 +85,7 @@ public class ClaimWriter {
         }
 
         if (!paintPlayer.isOverriding()) {
-            paintPlayer.setAvailableBlocks(paintPlayer.getAvailableBlocks()-paintClaim.getRegion().getValueSize());
+            claimManager.calculatePlayer(player, paintPlayer);
         }
 
         claimManager.add(paintClaim);
@@ -134,6 +137,18 @@ public class ClaimWriter {
         paintPlayer.getClaimInteraction().setPos1(null);
         paintPlayer.getClaimInteraction().setPos2(null);
 
+        if (!paintPlayer.isOverriding()) {
+            claimManager.calculatePlayer(paintPlayer.getPlayer(), paintPlayer);
+        }
+
+        int newClaim = region.getValueSize();
+        int oldClaim = paintPlayer.getClaimInteraction().getEditing().getRegion().getValueSize();
+        if (paintPlayer.getAvailableBlocks()+oldClaim-newClaim < 0 && !paintPlayer.isOverriding()) {
+            Chat.sendTranslation(paintPlayer.getPlayer(),true, LanguageFile.CLAIM_LIMIT_BLOCKS.getMessage(), new ClaimReplcements(paintPlayer.getClaimInteraction().getEditing()));
+            paintPlayer.clear();
+            return;
+        }
+
         if (isOverlaps(region,paintPlayer,paintPlayer.getClaimInteraction().getEditing().getRegion())) {
             Chat.sendTranslation(paintPlayer.getPlayer(), true, LanguageFile.CLAIM_OVERLAPS.getMessage(), new ClaimReplcements(paintPlayer.getClaimInteraction().getEditing()));
             paintPlayer.clear();
@@ -156,6 +171,10 @@ public class ClaimWriter {
         }
 
         visualization.apply(paintPlayer.getPlayer());
+
+        if (!paintPlayer.isOverriding()) {
+            claimManager.calculatePlayer(paintPlayer.getPlayer(), paintPlayer);
+        }
 
         paintPlayer.setVisualization(visualization);
         paintPlayer.getClaimInteraction().getEditing().setRegion(region);

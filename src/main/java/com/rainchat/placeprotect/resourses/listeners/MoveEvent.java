@@ -1,10 +1,13 @@
 package com.rainchat.placeprotect.resourses.listeners;
 
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import com.rainchat.placeprotect.api.placeholder.ClaimReplcements;
 import com.rainchat.placeprotect.data.claim.Region;
+import com.rainchat.placeprotect.data.config.LanguageFile;
 import com.rainchat.placeprotect.data.paintclaim.PaintClaim;
 import com.rainchat.placeprotect.data.paintclaim.PaintPlayer;
 import com.rainchat.placeprotect.managers.ClaimManager;
+import com.rainchat.placeprotect.utils.general.Chat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,22 +56,11 @@ public class MoveEvent implements Listener {
         paintPlayer.setCurrentClaim(paintClaim);
 
         if (newRegion == null) {
-            player.sendTitle(
-                    IridiumColorAPI.process("<GRADIENT:2C08BA>&lWilderness!</GRADIENT:028A97>&a"),
-                    IridiumColorAPI.process("&7Fresh new land awaits you."),
-                    10, 40, 10
-            );
+            Chat.sendTranslation(player,false, LanguageFile.CLAIM_JOIN_WILDERNESS.getMessage());
             return;
         }
 
-        player.sendTitle(
-                IridiumColorAPI.process("&a&lNew Region!"),
-                        IridiumColorAPI.process("&7&7Welcome to &b" + paintClaim.getName()),
-                10, 40, 10
-        );
-
-
-
+        Chat.sendTranslation(player,false, LanguageFile.CLAIM_JOIN_REGION.getMessage(), new ClaimReplcements(paintClaim));
 
     }
 

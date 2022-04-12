@@ -16,15 +16,17 @@ public enum LanguageFile {
     PLAYER_OFFLINE("Messages.general.player-offline", "The player &b{0} &7does not seem to be online."),
 
 
-    CLAIM_JOIN_REGION("Messages.custom.join-claim", "%actionbar%&7Welcome to &b{0}'s &7village."),
+    CLAIM_JOIN_REGION("Messages.custom.join-claim", "%actionbar%&7Welcome to &b%claim_name%'s &7claim."),
+    CLAIM_JOIN_WILDERNESS("Messages.custom.join-wilderness", "%actionbar%&a&lWilderness!"),
+
 
     CLAIM_INFO("Messages.claim.info", Arrays.asList(
-            "&7&o%village_target_name%",
+            "&7&o%claim_name%",
             "",
-            "&7Owner: &b%target_owner%",
-            "&7Members: &e%target_members%",
-            "&7Claims: &c%target_claims%"
+            "&7Size: &b%claim_size%",
+            "&7Owner: &e%claim_owner%"
     )),
+    CLAIM_NULL("Messages.claim.null-claim", "There is no claim here!"),
     CLAIM_ADD_PLAYER("Messages.claim.add-player", "&7Player has been successfully added to claim!"),
     CLAIM_REMOVE_PLAYER("Messages.claim.remove-player", "&7Player has been successfully remove from claim!"),
     CLAIM_NO_PLAYER("Messages.claim.not-player", "&eNo village was found on this chunk!"),
@@ -32,7 +34,7 @@ public enum LanguageFile {
     CLAIM_LIMIT_REGIONS("Messages.claim.limit-regions", "&cHas reached a limit of claims!"),
     CLAIM_LIMIT_BLOCKS("Messages.claim.limit-blocks", "&cNot enough blocks for claim!"),
     CLAIM_OVERLAPS("Messages.claim.overlaps", "&7Claims overlap."),
-    CLAIM_INVALID_SIZE("Messages.claim.invalid-size", "&7Invalid region size ({min} - {max})"),
+    CLAIM_INVALID_SIZE("Messages.claim.invalid-size", "&7Invalid claim size ({min} - {max})"),
     CLAIM_CREATE("Messages.claim.create", "&7Private has been successfully &acreated"),
     CLAIM_REMOVE("Messages.claim.remove", "&7Claim has been successfully &cdeleted"),
 
@@ -94,8 +96,7 @@ public enum LanguageFile {
         return configuration.getFile().getString(path, def);
     }
 
-    @Override
-    public String toString() {
+    public String getMessage() {
         String message;
         boolean isList = isList();
         boolean exists = exists();
@@ -114,10 +115,6 @@ public enum LanguageFile {
         }
 
         return Chat.translateRaw(message);
-    }
-
-    public String getMessage() {
-        return Color.parseHexString(configuration.getFile().getString(path, def));
     }
 
     private boolean exists() {

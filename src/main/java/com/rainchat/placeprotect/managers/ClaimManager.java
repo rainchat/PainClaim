@@ -60,7 +60,7 @@ public class ClaimManager extends Manager<PaintClaim> {
             paintClaimFiles.put(player.getUniqueId(), playerClaimFile);
             return paintPlayer;
         }
-        return paintPlayers.computeIfAbsent(player.getUniqueId(), k -> new PaintPlayer(player));
+        return paintPlayers.get(player.getUniqueId());
     }
 
     public void unLoadPlayerData(Player player) {
@@ -151,6 +151,15 @@ public class ClaimManager extends Manager<PaintClaim> {
         return null;
     }
 
+
+    public void calculatePlayer(Player player, PaintPlayer paintPlayer) {
+        int max = paintPlayer.getBonusBlocks() + paintPlayer.getClaimBlocks();
+        int blocks = 0;
+        for (PaintClaim paintClaim: getClaims(player)) {
+            blocks += paintClaim.getRegion().getValueSize();
+        }
+        paintPlayer.setAvailableBlocks(max-blocks);
+    }
 
 
     public List<PaintClaim> getArray() {

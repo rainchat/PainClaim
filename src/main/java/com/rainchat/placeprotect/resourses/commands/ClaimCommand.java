@@ -71,6 +71,8 @@ public class ClaimCommand {
             HashMap<String,String> param = new HashMap<>();
             param.put("claim", paintClaim.getId().toString());
             MenuManager.getInstance().openMenu(player,"main", param);
+        } else {
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_NOT_IN_CLAIM.getMessage(), new ClaimReplcements(paintClaim));
         }
     }
 
@@ -80,7 +82,11 @@ public class ClaimCommand {
         PaintPlayer paintPlayer = claimManager.loadPlayerData(player);
         PaintClaim paintClaim = claimManager.getClaim(player.getLocation());
 
-        Chat.sendTranslation(player,true, LanguageFile.CLAIM_INFO.getMessage(), new ClaimReplcements(paintClaim));
+        if (paintClaim == null) {
+            Chat.sendTranslation(player,true, LanguageFile.CLAIM_NULL.getMessage(), new ClaimReplcements(paintClaim));
+            return;
+        }
+        Chat.sendTranslation(player,false, LanguageFile.CLAIM_INFO.getMessage(), new ClaimReplcements(paintClaim));
     }
 
     @Subcommand("add")

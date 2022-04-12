@@ -38,7 +38,7 @@ public class CuboidEvent implements Listener {
 
         //Menu open
         if (player.isSneaking()) {
-            Bukkit.broadcastMessage("Вы открыли меню");
+            //Bukkit.broadcastMessage("Вы открыли меню");
             return;
         }
 

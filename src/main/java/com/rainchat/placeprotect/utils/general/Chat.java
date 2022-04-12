@@ -131,9 +131,9 @@ public class Chat {
                 }
             }
         }
-        if (!template.isEmpty() && prefixed) {}
+        if (!template.isEmpty() && prefixed) {
             template = LanguageFile.PREFIX.getMessage() + template;
-
+        }
         return template;
     }
 
